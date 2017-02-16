@@ -15,9 +15,6 @@ $BODY$
 
 CREATE OR REPLACE VIEW dates AS 
  SELECT generate_dates((now() - '3 years'::interval)::date, 72) AS dates;
-
-ALTER TABLE dates
-  OWNER TO pgsql;
   
   
 -- DROP VIEW calendar;
@@ -27,9 +24,6 @@ CREATE OR REPLACE VIEW calendar AS
  to_char(dates.dates::timestamp with time zone, 'Month'::text) AS month, 
  dates.dates AS start_date, date_part('days'::text, date_trunc('month'::text, dates.dates::timestamp with time zone) + '1 mon'::interval - '1 day'::interval) AS duration
    FROM dates;
-
-ALTER TABLE calendar
-  OWNER TO pgsql;
   
   
 --USAGE
